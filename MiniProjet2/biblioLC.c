@@ -105,5 +105,33 @@ void supprimer_livre(Biblio *b, int num, char *auteur, char *titre) {
     return;
 }
 
+void fusionner_biblio(Biblio *b1, Biblio *b2) {
+    Livre *ptr = b2 -> L;
+    while (ptr) {
+        inserer_en_tete(b1, ptr->num, ptr->titre, ptr->auteur);
+        ptr = ptr->suiv;
+    }
+    liberer_biblio(b2);
+}
+
+Livre *plusieurs_exemp(Biblio *b)   {
+    Biblio *r;
+    Livre *p1 = b->L;
+    Livre *p2;
+    while (p1)  {
+        p2 = b->L;
+        while (p2 && (strcmp(p1->auteur, p2->auteur) || strcmp(p1->titre, p2->titre)))  {
+            p2 = p2->suiv;
+        }
+        if (p2) {
+            inserer_en_tete(r, p1->num, p1->titre, p1->auteur);
+        }
+        p1 = p1->suiv;
+    }
+    return r->L;
+}
+
+
+
 
 
