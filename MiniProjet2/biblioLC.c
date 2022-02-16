@@ -98,7 +98,7 @@ void supprimer_livre(Biblio *b, int num, char *titre, char *auteur) {
         curr = curr->suiv;
         liberer_livre(prev);
         b -> L = curr;
-        printf("Suppression effectuée");
+        printf("Suppression effectuée\n");
         return;
     }
     
@@ -109,11 +109,11 @@ void supprimer_livre(Biblio *b, int num, char *titre, char *auteur) {
         if (curr && (curr->num == num) && !strcmp(curr->auteur, auteur) && !strcmp(curr->titre, titre)) {
             prev->suiv = curr->suiv;
             liberer_livre(curr);
-            printf("Suppression effectuée");
+            printf("Suppression effectuée\n");
             return;
         }
     }
-    printf("Livre introuvable : Suppression non effectuée");
+    printf("Livre introuvable : Suppression non effectuée\n");
     return;
 }
 
