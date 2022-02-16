@@ -89,7 +89,7 @@ Biblio *rechercher_auteur(Biblio *b, char *auteur) {
     return new_biblio;  /*retourne la bibliothèque des livres correspondant à la demande s'il en existe ou null sinon*/
 }
 
-void supprimer_livre(Biblio *b, int num, char *auteur, char *titre) {
+void supprimer_livre(Biblio *b, int num, char *titre, char *auteur) {
     Livre *prev=NULL, *curr = b -> L;
     
     /*cas où le premier livre correspond à celui demandé*/
