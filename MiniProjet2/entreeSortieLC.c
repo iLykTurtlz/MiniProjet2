@@ -23,7 +23,7 @@ Biblio *charger_n_entrees(char *nomfic, int n) {
         if (sscanf(buffer, "%d %s %s", &num, titre, auteur) == 3)   {
             inserer_en_tete(b, num, titre, auteur);
         } else {
-            printf("Erreur charger_n_entrees : ligne %d : format de ligne incorrect\n",i);
+            fprintf(stderr, "Erreur charger_n_entrees : ligne %d : format de ligne incorrect\n",i);
             fclose(f);
             return NULL;
         }
