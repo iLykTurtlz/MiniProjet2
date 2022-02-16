@@ -25,11 +25,12 @@ Biblio *creer_biblio()  {
 }
 
 void liberer_biblio(Biblio *b)  {
-    Livre *cour = b -> L, *prec;
-    while (cour) {
-        prec = cour;
-        cour = cour -> suiv;
-        liberer_livre(prec);
+    /*on parcourt la bibliothèque et on libère les livres un à un*/    
+    Livre *curr = b -> L, *prev;
+    while (curr) { 
+        prev = curr;
+        curr = curr -> suiv;
+        liberer_livre(prev);
     }
     free(b);
 }
@@ -42,13 +43,14 @@ void inserer_en_tete(Biblio *b, int num, char *titre, char *auteur) {
 
 void afficher_livre(Livre *l)   {
     if (l == NULL)  {
-        printf("Erreur, livre vide\n");
+        fprintf(stderr, "Erreur afficher_livre : livre vide\n");
         return;
     }
     printf("%d %s %s\n", l->num, l->titre, l->auteur);
 }
 
 void afficher_biblio(Biblio *b) {
+    /*on parcourt la bibliothèque et on affiche les livres un à un*/    
     Livre *ptr = b -> L;
     while (ptr) {
         afficher_livre(ptr);
@@ -57,55 +59,66 @@ void afficher_biblio(Biblio *b) {
 }
 
 Livre *rechercher_livre_num(Biblio * b, int num)  {
+    /*on parcourt la bibliothèque tant que le numéro du livre actuel ne correspond pas à celui demandé*/  
     Livre *ptr = b -> L;
     while (ptr && (ptr->num != num)) {
         ptr = ptr->suiv;
     }
-    return ptr;
+    return ptr;  /*retourne le livre correspondant à la demande s'il existe ou null sinon*/
 }
 
 Livre *rechercher_livre_titre(Biblio * b, char *titre)  {
+    /*on parcourt la bibliothèque tant que le titre du livre actuel ne correspond pas à celui demandé*/
     Livre *ptr = b -> L;
     while (ptr && (strcmp(titre, ptr->titre))) {
         ptr = ptr->suiv;
     }
-    return ptr;
+    return ptr;  /*retourne le livre correspondant à la demande s'il existe ou null sinon*/
 }
 
 Biblio *rechercher_auteur(Biblio *b, char *auteur) {
-    Biblio *new=creer_biblio();
+    /*on parcourt la bibliothèque, dès que l'auteur du livre correspond à la demande on l'ajoute dans la nouvelle bibliothèque créée*/ 
+    Biblio *new_biblio = creer_biblio();
     Livre *ptr = b -> L;
     while (ptr) {
         if (!strcmp(auteur, ptr->auteur))   {
-            inserer_en_tete(new, ptr->num, ptr->titre, ptr->auteur);
+            inserer_en_tete(new_biblio, ptr->num, ptr->titre, ptr->auteur);
         }
-        ptr = ptr->suiv;
+        ptr = ptr->suiv; 
     }
-    return new;
+    return new_biblio;  /*retourne la bibliothèque des livres correspondant à la demande s'il en existe ou null sinon*/
 }
 
-void supprimer_livre(Biblio *b, int num, char *auteur, char *titre) {
-    Livre *prec=NULL, *cour = b -> L;
-    if (cour && (cour->num == num) && !strcmp(cour->auteur, auteur) && !strcmp(cour->titre, titre)) {
-        prec = cour;
-        cour = cour->suiv;
-        liberer_livre(prec);
-        b -> L = cour;
+void supprimer_livre(Biblio *b, int num, char *titre, char *auteur) {
+    Livre *prev=NULL, *curr = b -> L;
+    
+    /*cas où le premier livre correspond à celui demandé*/
+    if (curr && (curr->num == num) && !strcmp(curr->auteur, auteur) && !strcmp(curr->titre, titre)) {
+        prev = curr;
+        curr = curr->suiv;
+        liberer_livre(prev);
+        b -> L = curr;
+        printf("Suppression effectuée\n");
         return;
     }
-    while (cour)    {
-        prec = cour;
-        cour = cour->suiv;
-        if (cour && (cour->num == num) && !strcmp(cour->auteur, auteur) && !strcmp(cour->titre, titre)) {
-            prec->suiv = cour->suiv;
-            liberer_livre(cour);
+    
+    /*sinon on parcourt la bibliothèque tant que le livre actuel ne correspond pas à celui demandé et on le supprime s'il correspond*/
+    while (curr)    {
+        prev = curr;
+        curr = curr->suiv;
+        if (curr && (curr->num == num) && !strcmp(curr->auteur, auteur) && !strcmp(curr->titre, titre)) {
+            prev->suiv = curr->suiv;
+            liberer_livre(curr);
+            printf("Suppression effectuée\n");
             return;
         }
     }
+    printf("Livre introuvable : Suppression non effectuée\n");
     return;
 }
 
 void fusionner_biblio(Biblio *b1, Biblio *b2) {
+    /*on parcourt la bibliothèque 2 pour ajouter ses livres à la bibliothèque 1 avant de la libérer*/
     Livre *ptr = b2 -> L;
     while (ptr) {
         inserer_en_tete(b1, ptr->num, ptr->titre, ptr->auteur);
@@ -115,20 +128,21 @@ void fusionner_biblio(Biblio *b1, Biblio *b2) {
 }
 
 Livre *plusieurs_exemp(Biblio *b)   {
-    Biblio *r;
+    /*pour chaque livre, on parcourt la bibliothèque à  la recherche de doublons qu'on ajoute, s'il existe, à la liste à renvoyer*/
+    Biblio *doublons;
     Livre *p1 = b->L;
     Livre *p2;
     while (p1)  {
-        p2 = b->L;
-        while (p2 && (strcmp(p1->auteur, p2->auteur) || strcmp(p1->titre, p2->titre)))  {
-            p2 = p2->suiv;
+        p2 = b->L; /*on revient au début de la bibliothèque pour chaque livre*/
+        while (p2 && (strcmp(p1->auteur, p2->auteur) || strcmp(p1->titre, p2->titre)))  { /*PROBLEME : TOUJOURS VERIFIE POUR LUI MEME !!!*/
+            p2 = p2->suiv; 
         }
         if (p2) {
-            inserer_en_tete(r, p1->num, p1->titre, p1->auteur);
+            inserer_en_tete(doublons, p1->num, p1->titre, p1->auteur);
         }
         p1 = p1->suiv;
     }
-    return r->L;
+    return doublons->L;
 }
 
 
