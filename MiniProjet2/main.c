@@ -45,7 +45,7 @@ int main(int argc, char **argv)  {
         
         fgets(buffer,256,stdin);
         if (sscanf(buffer, " %d", &rep) != 1)   {
-            fprintf(stderr, "Erreur format de réponse : Veuillez saisir le numéro des options proposées.\n");
+            fprintf(stderr, "Erreur format de réponse : Veuillez saisir le numéro d'une des options proposées.\n");
             continue; 
         }     
         switch (rep)    {
