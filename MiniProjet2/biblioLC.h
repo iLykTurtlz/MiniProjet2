@@ -21,6 +21,7 @@ void afficher_livre(Livre *l);
 void afficher_biblio(Biblio *b);
 Livre *rechercher_livre_num(Biblio * b, int num);
 Livre *rechercher_livre_titre(Biblio * b, char *titre);
+Livre *rechercher_livre_titre_auteur(Biblio * b, char *titre, char *auteur);
 Biblio *rechercher_auteur(Biblio *b, char *auteur);
 void supprimer_livre(Biblio *b, int num, char *titre, char *auteur);
 void fusionner_biblio(Biblio *b1, Biblio *b2);

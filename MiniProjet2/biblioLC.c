@@ -76,6 +76,15 @@ Livre *rechercher_livre_titre(Biblio * b, char *titre)  {
     return ptr;  /*retourne le livre correspondant à la demande s'il existe ou null sinon*/
 }
 
+Livre *rechercher_livre_titre_auteur(Biblio * b, char *titre, char *auteur)  {
+    /*on parcourt la bibliothèque tant que le titre et l'auteur du livre actuel ne correspond pas à ceux demandés*/
+    Livre *ptr = b -> L;
+    while (ptr && (strcmp(titre, ptr->titre)) && (strcmp(auteur, ptr->auteur))) {
+        ptr = ptr->suiv;
+    }
+    return ptr;  /*retourne le livre correspondant à la demande s'il existe ou null sinon*/
+}
+
 Biblio *rechercher_auteur(Biblio *b, char *auteur) {
     /*on parcourt la bibliothèque, dès que l'auteur du livre correspond à la demande on l'ajoute dans la nouvelle bibliothèque créée*/ 
     Biblio *new_biblio = creer_biblio();
@@ -127,19 +136,29 @@ void fusionner_biblio(Biblio *b1, Biblio *b2) {
     liberer_biblio(b2);
 }
 
+
 Livre *plusieurs_exemp(Biblio *b)   {
     /*pour chaque livre, on parcourt la bibliothèque à  la recherche de doublons qu'on ajoute, s'il existe, à la liste à renvoyer*/
     Biblio *doublons;
+    doublons->L=NULL;
     Livre *p1 = b->L;
     Livre *p2;
+    int deja;
     while (p1)  {
+        deja=0;
         p2 = p1->suiv; /*on revient au début de la bibliothèque pour chaque livre*/
-        while (p2 && (strcmp(p1->auteur, p2->auteur) || strcmp(p1->titre, p2->titre)))  { /*PROBLEME : TOUJOURS VERIFIE POUR LUI MEME !!!*/
-            p2 = p2->suiv; 
-        }
-        if (p2) {
-            inserer_en_tete(doublons, p1->num, p1->titre, p1->auteur);
-        }
+        if (rechercher_livre_titre_auteur(doublons,p1->titre,p1->auteur) == NULL)   {
+            while (p2)  {
+                if (!strcmp(p1->titre, p2->titre) && !strcmp(p1->auteur, p2->auteur))   {
+                    if (!deja)  {
+                        inserer_en_tete(doublons, p1->num, p1->titre, p1->auteur);
+                        deja = 1;
+                    }
+                    inserer_en_tete(doublons, p2->num, p2->titre, p2->auteur);
+                }
+                p2 = p2->suiv; 
+            }
+        } 
         p1 = p1->suiv;
     }
     return doublons->L;
