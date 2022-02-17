@@ -133,7 +133,7 @@ Livre *plusieurs_exemp(Biblio *b)   {
     Livre *p1 = b->L;
     Livre *p2;
     while (p1)  {
-        p2 = b->L; /*on revient au début de la bibliothèque pour chaque livre*/
+        p2 = p1->suiv; /*on revient au début de la bibliothèque pour chaque livre*/
         while (p2 && (strcmp(p1->auteur, p2->auteur) || strcmp(p1->titre, p2->titre)))  { /*PROBLEME : TOUJOURS VERIFIE POUR LUI MEME !!!*/
             p2 = p2->suiv; 
         }
