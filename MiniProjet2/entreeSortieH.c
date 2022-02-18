@@ -38,4 +38,5 @@ void enregistrer_biblio(BiblioH *b, char *nomfic) {
             l = l->suiv;
         }
     }
+    fclose(f);
 }

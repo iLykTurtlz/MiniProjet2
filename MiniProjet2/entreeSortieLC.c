@@ -45,5 +45,6 @@ void enregistrer_biblio(Biblio *b, char *nomfic) {
         fprintf(f,"%d %s %s\n",ptr->num,ptr->titre,ptr->auteur);
         ptr = ptr->suiv;
     }
+    fclose(f);
 }
 
