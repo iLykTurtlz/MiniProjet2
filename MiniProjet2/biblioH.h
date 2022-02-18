@@ -40,6 +40,7 @@ LivreH *rechercher_livre_num(BiblioH *b, int num);
 LivreH *rechercher_livre_titre(BiblioH *b, char *titre);
 LivreH *rechercher_livre_auteur(BiblioH *b, char *auteur);
 void supprimer_livre(BiblioH *b, int num, char *titre, char *auteur);
+void fusionner_biblio(BiblioH *b1, BiblioH *b2);
 
 
 

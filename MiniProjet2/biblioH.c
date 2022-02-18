@@ -67,6 +67,12 @@ void inserer_en_tete(LivreH *liste, LivreH *livre)  {
     liste = livre;
 }
 
+void inserer_copie_en_tete(LivreH *liste, int num, char *titre, char *auteur)   {
+    Livre *l = creer_livre(num, titre, auteur);
+    l -> suiv = liste;
+    liste = l;
+}
+
 void inserer(BiblioH *b, int num, char *titre, char *auteur)    {
     LivreH *l = creer_livre(num,titre,auteur);
     int position = fonctionHachage(l->clef,b->m);
@@ -133,6 +139,14 @@ LivreH *rechercher_livre_auteur(BiblioH *b, char *auteur)   {
     return res;
 }
 
+LivreH *recherche_livre_titre_auteur(LivreH *liste, char *titre, char *auteur) {
+    LivreH *ptr  = liste;
+    while (ptr && ((strcmp(titre, ptr->titre)) || (strcmp(auteur, ptr->auteur)))) {
+        ptr = ptr->suiv;
+    }
+    return ptr;
+}
+
 void supprimer_livre(BiblioH *b, int num, char *titre, char *auteur)    {
     int position = fonctionHachage(fonctionClef(auteur),b->m);
     LivreH *curr = b->T[position];
@@ -173,13 +187,34 @@ void fusionner_biblio(BiblioH *b1, BiblioH *b2)   {
     liberer_biblio(b2);
 }
 
- 
+ LivreH *plusieurs_exemp(BiblioH *b)   {
+    /*pour chaque livre, on parcourt la bibliothèque à  la recherche de doublons qu'on ajoute, s'il existe, à la liste à renvoyer*/
+    LivreH *doublons=NULL;
+    LivreH *p1;
+    LivreH *p2;
+    int deja;
 
-
-
-
-
-
-
+    for (int i=0; i<b->m; i++)  {
+        p1 = b->T[i];
+        while (p1)  {
+            deja=0;
+            p2 = p1->suiv; /*on revient au début de la bibliothèque pour chaque livre*/
+            if (rechercher_livre_titre_auteur(doublons,p1->titre,p1->auteur) == NULL)   {
+                while (p2)  {
+                    if (!strcmp(p1->titre, p2->titre) && !strcmp(p1->auteur, p2->auteur))   {
+                        if (!deja)  {
+                            inserer_copie_en_tete(doublons, p1->num, p1->titre, p1->auteur);
+                            deja = 1;
+                        }
+                        inserer_copie_en_tete(doublons, p2->num, p2->titre, p2->auteur);
+                    }
+                    p2 = p2->suiv; 
+                }
+            } 
+            p1 = p1->suiv;
+        }
+    }
+    return doublons;
+}
 
 
