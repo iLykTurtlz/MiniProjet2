@@ -103,6 +103,7 @@ LivreH *rechercher_livre_num(BiblioH *b, int num)   {
             l = l->suiv;
         }
     }
+    return l;
 }
 
 LivreH *rechercher_livre_titre(BiblioH *b, char *titre)   {
@@ -116,6 +117,7 @@ LivreH *rechercher_livre_titre(BiblioH *b, char *titre)   {
             l = l->suiv;
         }
     }
+    return l;
 }
 
 LivreH *rechercher_livre_auteur(BiblioH *b, char *auteur)   {
@@ -128,6 +130,7 @@ LivreH *rechercher_livre_auteur(BiblioH *b, char *auteur)   {
         }
         l = l->suiv;
     }
+    return res;
 }
 
 void supprimer_livre(BiblioH *b, int num, char *titre, char *auteur)    {
@@ -156,6 +159,21 @@ void supprimer_livre(BiblioH *b, int num, char *titre, char *auteur)    {
     return;
 }
 
+void fusionner_biblio(BiblioH *b1, BiblioH *b2)   {
+    /*on parcourt la bibliothèque 2 pour ajouter ses livres à la bibliothèque 1 avant de la libérer*/
+    LivreH *ptr = NULL;
+
+    for (int i=0; i<b2->m; i++) {
+        ptr = b2->T;
+        while(ptr)  {
+            inserer(b1, ptr->num, ptr->titre, ptr->auteur);
+            ptr = ptr->suiv;
+        }
+    }
+    liberer_biblio(b2);
+}
+
+ 
 
 
 
