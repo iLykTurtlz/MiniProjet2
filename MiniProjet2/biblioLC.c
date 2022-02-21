@@ -138,7 +138,7 @@ void fusionner_biblio(Biblio *b1, Biblio *b2) {
 
 
 Livre *plusieurs_exemp(Biblio *b)   {
-    /*pour chaque livre, on parcourt la bibliothèque à  la recherche de doublons qu'on ajoute, s'il existe, à la liste à renvoyer*/
+    /*pour chaque livre, on parcourt la bibliothèque à la recherche de doublons qu'on ajoute, s'il existe, à la liste à renvoyer*/
     Biblio *doublons;
     doublons->L=NULL;
     Livre *p1 = b->L;
@@ -146,15 +146,18 @@ Livre *plusieurs_exemp(Biblio *b)   {
     int deja;
     while (p1)  {
         deja=0;
-        p2 = p1->suiv; /*on revient au début de la bibliothèque pour chaque livre*/
+        p2 = p1->suiv; /*on part du prochain livre de la bibliothèque car ceux avant on déjà été traités*/
+        
+         /*si ce livre n'appartient pas à la liste, alors on doit cherché s'il a des doublons, sinon on passe directement au livre suivant*/
         if (rechercher_livre_titre_auteur(doublons,p1->titre,p1->auteur) == NULL)   {
             while (p2)  {
                 if (!strcmp(p1->titre, p2->titre) && !strcmp(p1->auteur, p2->auteur))   {
-                    if (!deja)  {
+                    /*si deja est fausse, c'est le premier doublon trouvé donc on ajoute le doublon et le livre de référence, sinon juste le doublon*/
+                    if (!deja)  { 
                         inserer_en_tete(doublons, p1->num, p1->titre, p1->auteur);
                         deja = 1;
                     }
-                    inserer_en_tete(doublons, p2->num, p2->titre, p2->auteur);
+                    inserer_en_tete(doublons, p2->num, p2->titre, p2->auteur); 
                 }
                 p2 = p2->suiv; 
             }
