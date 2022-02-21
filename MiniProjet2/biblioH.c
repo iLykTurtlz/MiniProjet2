@@ -139,7 +139,7 @@ LivreH *rechercher_livre_auteur(BiblioH *b, char *auteur)   {
     return res;
 }
 
-LivreH *recherche_livre_titre_auteur(LivreH *liste, char *titre, char *auteur) {
+LivreH *recherche_liste_titre_auteur(LivreH *liste, char *titre, char *auteur) {
     LivreH *ptr  = liste;
     while (ptr && ((strcmp(titre, ptr->titre)) || (strcmp(auteur, ptr->auteur)))) {
         ptr = ptr->suiv;
@@ -149,27 +149,31 @@ LivreH *recherche_livre_titre_auteur(LivreH *liste, char *titre, char *auteur) {
 
 void supprimer_livre(BiblioH *b, int num, char *titre, char *auteur)    {
     int position = fonctionHachage(fonctionClef(auteur),b->m);
-    LivreH *curr = b->T[position];
+    LivreH *curr = b->T[position]; /*on se place dans la liste des livres ayant la même clé, cad, potentiellement les même auteur*/
     LivreH *prev = NULL;
-
+    
+    /*cas où le premier livre correspond à celui demandé*/
     if (curr && (curr->num == num) && !strcmp(curr->auteur, auteur) && !strcmp(curr->titre, titre)) {
         prev = curr;
         curr = curr->suiv;
         liberer_livre(prev);
+        printf("Suppression effectuée\n");
         b->T[position] = curr;
         return;
     }
 
+    /*sinon on parcourt la bibliothèque tant que le livre actuel ne correspond pas à celui demandé et on le supprime s'il correspond*/
     while (curr)   {
         prev = curr;
         curr = curr->suiv;
         if (curr && (curr->num == num) && !strcmp(curr->auteur, auteur) && !strcmp(curr->titre, titre)) {
             prev->suiv = curr->suiv;
             liberer_livre(curr);
+            printf("Suppression effectuée\n");
             return;
         }  
     }
-    printf("supprimer_livre : livre non trouvé\n");
+    printf("Livre introuvable : Suppression non effectuée\n");
     return;
 }
 
@@ -188,7 +192,7 @@ void fusionner_biblio(BiblioH *b1, BiblioH *b2)   {
 }
 
  LivreH *plusieurs_exemp(BiblioH *b)   {
-    /*pour chaque livre, on parcourt la bibliothèque à  la recherche de doublons qu'on ajoute, s'il existe, à la liste à renvoyer*/
+    /*on parcourt les liste de la bibliothèque à la recherche de doublons qu'on ajoute, s'il existe, à la liste à renvoyer*/
     LivreH *doublons=NULL;
     LivreH *p1;
     LivreH *p2;
@@ -198,10 +202,13 @@ void fusionner_biblio(BiblioH *b1, BiblioH *b2)   {
         p1 = b->T[i];
         while (p1)  {
             deja=0;
-            p2 = p1->suiv; /*on revient au début de la bibliothèque pour chaque livre*/
-            if (rechercher_livre_titre_auteur(doublons,p1->titre,p1->auteur) == NULL)   {
+            p2 = p1->suiv; /*on part du prochain livre de la bibliothèque car ceux avant on déjà été traités*/
+            
+            /*si ce livre n'appartient pas à la liste, alors on doit cherché s'il a des doublons, sinon on passe directement au livre suivant*/
+            if (rechercher_liste_titre_auteur(doublons,p1->titre,p1->auteur) == NULL)   {
                 while (p2)  {
                     if (!strcmp(p1->titre, p2->titre) && !strcmp(p1->auteur, p2->auteur))   {
+                        /*si deja est fausse, c'est le premier doublon trouvé donc on ajoute le doublon et le livre de référence, sinon juste le doublon*/
                         if (!deja)  {
                             inserer_copie_en_tete(doublons, p1->num, p1->titre, p1->auteur);
                             deja = 1;
