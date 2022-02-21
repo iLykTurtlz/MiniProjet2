@@ -1,0 +1,23 @@
+Recherche 100 fois : 24610 ELUUREXEMCRBHHVVB fkaox
+0.051965 0.054135 0.073034
+
+Recherche 100 fois : 63794 UZLKNLZHRCHGPSBJ xtljqqfk
+0.026385 0.026676 0.071851
+
+Recherche 100 fois : 0 WLRBBMQBHCDARZOWK yhidd
+0.069075 0.071314 0.071460
+
+Recherche 100 fois : 99999 YTIPEGBOCWJAEUOO ysj
+0.000054 0.000082 0.078336
+
+_____________________________________________________
+
+Recherche 100 fois : 100001 blah blah
+0.070456 0.074165 0.074215
+
+Recherche 100 fois : 100001 blah blah
+0.073980 0.076725 0.076303
+
+Recherche 100 fois : 100001 blah blah
+0.072404 0.077037 0.073191
+
