@@ -17,7 +17,6 @@ void liberer_livre(Livre *l);
 Biblio *creer_biblio();
 void liberer_biblio(Biblio *b);
 void inserer_en_tete(Biblio *b, int num, char *titre, char *auteur);
-void inserer_en_tete_liste(Livre *liste, int num, char *titre, char *auteur);
 void afficher_livre(Livre *l);
 void afficher_biblio(Biblio *b);
 Livre *rechercher_livre_num(Biblio * b, int num);
@@ -26,6 +25,6 @@ Livre *rechercher_livre_titre_auteur(Livre *liste, char *titre, char *auteur);
 Biblio *rechercher_auteur(Biblio *b, char *auteur);
 void supprimer_livre(Biblio *b, int num, char *titre, char *auteur);
 void fusionner_biblio(Biblio *b1, Biblio *b2);
-Livre *plusieurs_exemp(Biblio *b) ;
+Biblio *plusieurs_exemp(Biblio *b);
 
 #endif
