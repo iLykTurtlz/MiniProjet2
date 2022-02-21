@@ -139,21 +139,51 @@ printf("\n");
 printf("verfication de la bibliotheque initiale : pas de modification ?\n");
 afficher_biblio(b);
 liberer_biblio(b);
+
+
+//tests : fusionner_biblio + plusieurs_exemp
+printf("\n\ntests : fusionner_biblio + plusieurs_exemp:\n");
+
+/*test 6*/
+printf("\nTest 6 :\n");
+printf("On cree, affiche fusionne libere deux bibliotheques \n");
+
+printf("creation b1 \n");
+b = creer_biblio(20);
+inserer(b, 0, "A", "A");
+inserer(b, 1, "C", "C");
+inserer(b, 0, "A", "A");
+afficher_biblio(b);
+
+printf("\n");
+printf("creation b2 \n");
+BiblioH *b2 = creer_biblio(10);
+inserer(b2, 5, "B", "B");
+inserer(b2, 1, "C", "C");
+inserer(b2, 3, "B", "B");
+afficher_biblio(b2);
+
+printf("\n");
+printf("fusion des bibliotheques \n");
+fusionner_biblio(b,b2);
+afficher_biblio(b);
+
+/*test 7*/
+printf("\nTest 7 :\n");
+printf("On cherche les doublons dans la nouvelle bibliotheque \n");
+
+printf("\n");
+printf("On affiche la bibliotheque : \n");
+afficher_biblio(b);
+
+printf("\n");
+printf("On affiche les doublons de la bibliotheque : \n");
+l = plusieurs_exemp(b) ;
+if (l==NULL){printf("plusieurs_exemp : fail test 7\n");}
+else {printf("plusieurs_exemp : success test 7\n");
+afficher_liste(l);
 }
 
-/*
-
-void liberer_liste(LivreH *l);
-int fonctionHachage(int cle, int m);
-void inserer_en_tete(LivreH **liste, LivreH *livre);
-void inserer_copie_en_tete(LivreH **liste, int num, char *titre, char *auteur);
-
-
-
-void afficher_liste (LivreH *l);
-LivreH *rechercher_liste_titre_auteur(LivreH *liste, char *titre, char *auteur);
-
-
-void fusionner_biblio(BiblioH *b1, BiblioH *b2);
- LivreH *plusieurs_exemp(BiblioH *b);
- */
+liberer_liste(l);
+liberer_biblio(b);
+}
