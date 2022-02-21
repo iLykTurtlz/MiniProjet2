@@ -10,7 +10,7 @@ void menu() {
     printf("1-Afficher la bibliothèque\n");
     printf("2-Inserer un ouvrage\n");
     printf("3-Supprimer un ouvrage\n");
-    printf("4-Rechercher un ouvrage par son numéro d’enregistrement\n");
+    printf("4-Rechercher un ouvrage par son numéro d'enregistrement\n");
     printf("5-Rechercher un ouvrage par son titre\n");
     printf("6-Rechercher les ouvrages d'un auteur\n");
     printf("7-Chercher doublons dans la bibliothèque\n");
