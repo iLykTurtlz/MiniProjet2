@@ -5,6 +5,7 @@
 #include "entreeSortieH.h"
 
 void menu() {
+    printf("\n");
     printf("0-sortie du programme\n");
     printf("1-Afficher la bibliothèque\n");
     printf("2-Inserer un ouvrage\n");
@@ -54,7 +55,6 @@ int main(int argc, char **argv)  {
             case 1: /*Affichage*/
                 printf("Affichage de la bibliothèque :\n");
                 afficher_biblio(b);
-                printf("\n");
                 break;
             case 2:/*Insertion*/
                 printf("Veuillez ecrire le numero, le titre et l'auteur de l'ouvrage à insérer.\n");
@@ -81,7 +81,7 @@ int main(int argc, char **argv)  {
                 if (sscanf(buffer," %d",&num)==1)   {
                     livre = rechercher_livre_num(b,num);
                     printf("Recherche effectuée. Résultat : \n");
-                    afficher_livre(livre);                    
+                    afficher_livre(livre);                   
                 } else {
                     printf("Erreur de format : recherche impossible\n");
                 }
@@ -112,7 +112,6 @@ int main(int argc, char **argv)  {
                 doublons = plusieurs_exemp(b);
                 printf("Doublons dans la bibliothèque :\n");
                 afficher_liste(doublons);
-                printf("\n");
                 liberer_liste(doublons);
                 break;
         }

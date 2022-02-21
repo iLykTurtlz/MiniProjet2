@@ -80,8 +80,9 @@ void inserer(BiblioH *b, int num, char *titre, char *auteur)    {
 void afficher_livre(LivreH *l)  {
     if (l == NULL)  {
         fprintf(stderr, "Erreur afficher_livre : livre vide\n");
+    } else {
+        printf("%d %s %s\n", l->num, l->titre, l->auteur);
     }
-    printf("%d %s %s\n", l->num, l->titre, l->auteur);
 }
 
 void afficher_liste (LivreH *l)  {
