@@ -75,6 +75,7 @@ void inserer(BiblioH *b, int num, char *titre, char *auteur)    {
     LivreH *l = creer_livre(num,titre,auteur);
     int position = fonctionHachage(l->clef,b->m);
     inserer_en_tete(b->T + position, l); 
+    b -> nE = (b -> nE) + 1;
 }
 
 void afficher_livre(LivreH *l)  {
@@ -169,6 +170,7 @@ void supprimer_livre(BiblioH *b, int num, char *titre, char *auteur)    {
         liberer_livre(prev);
         printf("Suppression effectuée\n");
         b->T[position] = curr;
+        b->nE = (b->nE)-1;
         return;
     }
 
@@ -180,6 +182,7 @@ void supprimer_livre(BiblioH *b, int num, char *titre, char *auteur)    {
             prev->suiv = curr->suiv;
             liberer_livre(curr);
             printf("Suppression effectuée\n");
+            b->nE = (b->nE)-1;
             return;
         }  
     }
