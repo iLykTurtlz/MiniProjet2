@@ -35,6 +35,7 @@ void inserer_copie_en_tete(LivreH *liste, int num, char *titre, char *auteur)
 void inserer(BiblioH *b, int num, char *titre, char *auteur);
 
 void afficher_livre(LivreH *l);
+void afficher_liste (LivreH *l);
 void afficher_biblio(BiblioH *b);
 LivreH *rechercher_livre_num(BiblioH *b, int num);
 LivreH *rechercher_livre_titre(BiblioH *b, char *titre);
