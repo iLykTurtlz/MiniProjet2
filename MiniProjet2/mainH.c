@@ -12,9 +12,8 @@ void menu() {
     printf("4-Rechercher un ouvrage par son numéro d’enregistrement\n");
     printf("5-Rechercher un ouvrage par son titre\n");
     printf("6-Rechercher les ouvrages d'un auteur\n");
+    printf("7-Chercher doublons dans la bibliothèque\n");
     printf("\n"); 
-
-
 }
 
 
@@ -35,6 +34,8 @@ int main(int argc, char **argv)  {
     /*Gestion des requêtes de l'utilisateur*/
     LivreH *livre;
     //BiblioH *resB;
+
+    LivreH *doublons = NULL;
     int rep;
     int num;
     char buffer[256];
@@ -53,6 +54,7 @@ int main(int argc, char **argv)  {
             case 1: /*Affichage*/
                 printf("Affichage de la bibliothèque :\n");
                 afficher_biblio(b);
+                printf("\n");
                 break;
             case 2:/*Insertion*/
                 printf("Veuillez ecrire le numero, le titre et l'auteur de l'ouvrage à insérer.\n");
@@ -105,7 +107,12 @@ int main(int argc, char **argv)  {
                 } else {
                     printf("Erreur de format : recherche impossible\n");
                 }
-                break;        
+                break;    
+            case 7: /*Chercher doublons*/
+                doublons = plusieurs_exemp(b);
+                afficher_liste(doublons);
+                liberer_liste(doublons);
+                break;
         }
     } while (rep != 0);
     

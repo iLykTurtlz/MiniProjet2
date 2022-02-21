@@ -30,8 +30,8 @@ BiblioH *creer_biblio(int m);
 void liberer_liste(LivreH *l);
 void liberer_biblio(BiblioH *b);
 int fonctionHachage(int cle, int m);
-void inserer_en_tete(LivreH *liste, LivreH *livre);
-void inserer_copie_en_tete(LivreH *liste, int num, char *titre, char *auteur);
+void inserer_en_tete(LivreH **liste, LivreH *livre);
+void inserer_copie_en_tete(LivreH **liste, int num, char *titre, char *auteur);
 void inserer(BiblioH *b, int num, char *titre, char *auteur);
 
 void afficher_livre(LivreH *l);

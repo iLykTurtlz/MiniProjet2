@@ -60,30 +60,28 @@ int fonctionHachage(int cle, int m) {
     return (int)(m*(cle*(A)-(int)(cle*A)));
 }
 
-void inserer_en_tete(LivreH *liste, LivreH *livre)  {
-    //if (liste)  {
-        livre->suiv = liste;
-    //}
-    liste = livre;
+void inserer_en_tete(LivreH **liste, LivreH *livre)  {
+    livre->suiv = *liste;
+    *liste = livre;
 }
 
-void inserer_copie_en_tete(LivreH *liste, int num, char *titre, char *auteur)   {
+void inserer_copie_en_tete(LivreH **liste, int num, char *titre, char *auteur)   {
     LivreH *l = creer_livre(num, titre, auteur);
-    l -> suiv = liste;
-    liste = l;
+    l -> suiv = *liste;
+    *liste = l;
 }
 
 void inserer(BiblioH *b, int num, char *titre, char *auteur)    {
     LivreH *l = creer_livre(num,titre,auteur);
     int position = fonctionHachage(l->clef,b->m);
-    inserer_en_tete(b->T[position], l); 
+    inserer_en_tete(&b->T[position], l); 
 }
 
 void afficher_livre(LivreH *l)  {
     if (l == NULL)  {
         fprintf(stderr, "Erreur afficher_livre : livre vide\n");
     }
-    printf("%d %s %s", l->num, l->titre, l->auteur);
+    printf("%d %s %s\n", l->num, l->titre, l->auteur);
 }
 
 void afficher_liste (LivreH *l)  {
@@ -91,8 +89,8 @@ void afficher_liste (LivreH *l)  {
         fprintf(stderr, "Erreur afficher_livre : liste vide\n");
     }
     while (l)   {
-        printf("%d %s %s", l->num, l->titre, l->auteur);
-        l = l-> suiv;
+        afficher_livre(l);
+        l = l->suiv;
     }
 }
 
@@ -106,6 +104,7 @@ void afficher_biblio(BiblioH *b)    {
             l = l->suiv;
         }
     }
+
 }
 
 LivreH *rechercher_livre_num(BiblioH *b, int num)   {
@@ -142,7 +141,7 @@ LivreH *rechercher_auteur(BiblioH *b, char *auteur)   {
     LivreH *l = b->T[position];
     while (l)   {
         if (!strcmp(l->auteur,auteur))  {
-            inserer_en_tete(res,l);
+            inserer_en_tete(&res,l);
         }
         l = l->suiv;
     }
@@ -220,10 +219,10 @@ void fusionner_biblio(BiblioH *b1, BiblioH *b2)   {
                     if (!strcmp(p1->titre, p2->titre) && !strcmp(p1->auteur, p2->auteur))   {
                         /*si deja est fausse, c'est le premier doublon trouvé donc on ajoute le doublon et le livre de référence, sinon juste le doublon*/
                         if (!deja)  {
-                            inserer_copie_en_tete(doublons, p1->num, p1->titre, p1->auteur);
+                            inserer_copie_en_tete(&doublons, p1->num, p1->titre, p1->auteur);
                             deja = 1;
                         }
-                        inserer_copie_en_tete(doublons, p2->num, p2->titre, p2->auteur);
+                        inserer_copie_en_tete(&doublons, p2->num, p2->titre, p2->auteur);
                     }
                     p2 = p2->suiv; 
                 }
