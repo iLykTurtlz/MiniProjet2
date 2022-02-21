@@ -173,12 +173,3 @@ afficher_biblio(b2);
 liberer_biblio(b);
 liberer_biblio(b2);
 }
-
-/*
-
-
-void inserer_en_tete_liste(Livre *liste, int num, char *titre, char *auteur);
-Livre *rechercher_livre_titre_auteur(Livre *liste, char *titre, char *auteur);
-
-
-*/
