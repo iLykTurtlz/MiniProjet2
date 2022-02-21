@@ -25,6 +25,6 @@ Livre *rechercher_livre_titre_auteur(Biblio * b, char *titre, char *auteur);
 Biblio *rechercher_auteur(Biblio *b, char *auteur);
 void supprimer_livre(Biblio *b, int num, char *titre, char *auteur);
 void fusionner_biblio(Biblio *b1, Biblio *b2);
-Livre *plusieurs_exemp(Biblio *b) ; /*je crois qu'elle ne fonctionne pas comme on voudrait... à revoir !*/
+Livre *plusieurs_exemp(Biblio *b) ;
 
 #endif
