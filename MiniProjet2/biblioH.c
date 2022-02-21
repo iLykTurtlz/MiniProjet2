@@ -142,7 +142,7 @@ LivreH *rechercher_auteur(BiblioH *b, char *auteur)   {
     LivreH *l = b->T[position];
     while (l)   {
         if (!strcmp(l->auteur,auteur))  {
-            inserer_en_tete(&res,l);
+            inserer_copie_en_tete(&res,l->num, l->titre, l->auteur);
         }
         l = l->suiv;
     }
