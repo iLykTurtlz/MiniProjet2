@@ -37,7 +37,7 @@ void enregistrer_biblio(Biblio *b, char *nomfic) {
     FILE *f = fopen(nomfic,"w");
     if (f==NULL){
         fprintf(stderr, "Erreur charger_n_entrees : ouverture du fichier\n");
-        return NULL;
+        return;
     }
     
     Livre *ptr = b -> L;

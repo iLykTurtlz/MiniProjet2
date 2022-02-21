@@ -61,14 +61,14 @@ int fonctionHachage(int cle, int m) {
 }
 
 void inserer_en_tete(LivreH *liste, LivreH *livre)  {
-    if (liste)  {
+    //if (liste)  {
         livre->suiv = liste;
-    }
+    //}
     liste = livre;
 }
 
 void inserer_copie_en_tete(LivreH *liste, int num, char *titre, char *auteur)   {
-    Livre *l = creer_livre(num, titre, auteur);
+    LivreH *l = creer_livre(num, titre, auteur);
     l -> suiv = liste;
     liste = l;
 }
@@ -136,7 +136,7 @@ LivreH *rechercher_livre_titre(BiblioH *b, char *titre)   {
     return l;
 }
 
-LivreH *rechercher_livre_auteur(BiblioH *b, char *auteur)   {
+LivreH *rechercher_auteur(BiblioH *b, char *auteur)   {
     int position = fonctionHachage(fonctionClef(auteur),b->m);
     LivreH *res = NULL;
     LivreH *l = b->T[position];
@@ -149,7 +149,7 @@ LivreH *rechercher_livre_auteur(BiblioH *b, char *auteur)   {
     return res;
 }
 
-LivreH *recherche_liste_titre_auteur(LivreH *liste, char *titre, char *auteur) {
+LivreH *rechercher_liste_titre_auteur(LivreH *liste, char *titre, char *auteur) {
     LivreH *ptr  = liste;
     while (ptr && ((strcmp(titre, ptr->titre)) || (strcmp(auteur, ptr->auteur)))) {
         ptr = ptr->suiv;
@@ -192,7 +192,7 @@ void fusionner_biblio(BiblioH *b1, BiblioH *b2)   {
     LivreH *ptr = NULL;
 
     for (int i=0; i<b2->m; i++) {
-        ptr = b2->T;
+        ptr = b2->T[i];
         while(ptr)  {
             inserer(b1, ptr->num, ptr->titre, ptr->auteur);
             ptr = ptr->suiv;

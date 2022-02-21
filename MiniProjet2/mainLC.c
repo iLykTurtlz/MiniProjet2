@@ -49,8 +49,9 @@ int main(int argc, char **argv)  {
         }     
         switch (rep)    {
             case 1: /*Affichage*/
-                printf("Affichage de la bibliothèque :\n");
+                printf("Affichage de la bibliothèque :\n\n");
                 afficher_biblio(b);
+                printf("\n");
                 break;
             case 2:/*Insertion*/
                 printf("Veuillez ecrire le numero, le titre et l'auteur de l'ouvrage à insérer.\n");

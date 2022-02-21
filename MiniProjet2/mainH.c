@@ -34,7 +34,7 @@ int main(int argc, char **argv)  {
     
     /*Gestion des requêtes de l'utilisateur*/
     LivreH *livre;
-    BiblioH *resB;
+    //BiblioH *resB;
     int rep;
     int num;
     char buffer[256];
