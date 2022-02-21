@@ -86,6 +86,16 @@ void afficher_livre(LivreH *l)  {
     printf("%d %s %s", l->num, l->titre, l->auteur);
 }
 
+void afficher_liste (LivreH *l)  {
+    if (l == NULL)  {
+        fprintf(stderr, "Erreur afficher_livre : liste vide\n");
+    }
+    while (l)   {
+        printf("%d %s %s", l->num, l->titre, l->auteur);
+        l = l-> suiv;
+    }
+}
+
 void afficher_biblio(BiblioH *b)    {
     int i;
     LivreH *l=NULL;
