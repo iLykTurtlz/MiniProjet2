@@ -139,7 +139,7 @@ void fusionner_biblio(Biblio *b1, Biblio *b2) {
 
 Biblio *plusieurs_exemp(Biblio *b)   {
     /*pour chaque livre, on parcourt la bibliothèque à la recherche de doublons qu'on ajoute, s'il existe, à la liste à renvoyer*/
-    Biblio *doublons=NULL;
+    Biblio *doublons=creer_biblio();
     Livre *p1 = b->L;
     Livre *p2;
     int deja;
