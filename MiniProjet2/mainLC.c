@@ -12,8 +12,7 @@ void menu() {
     printf("4-Rechercher un ouvrage par son numéro d’enregistrement\n");
     printf("5-Rechercher un ouvrage par son titre\n");
     printf("6-Rechercher les ouvrages d'un auteur\n");
-    printf("\n"); //test commentaire
-
+    printf("\n");
 
 }
 
