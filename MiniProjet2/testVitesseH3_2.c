@@ -8,7 +8,7 @@
 
 
 int main(int argc, char **argv) {
-    FILE *stream = fopen("vitesseH3_2.txt","w");
+    FILE *stream = fopen("vitesseH3_2_INC20.txt","w");
     if (stream == NULL) {
         fprintf(stderr,"Erreur de l'ouverture du fichier\n");
         exit(1);
@@ -32,9 +32,9 @@ int main(int argc, char **argv) {
     clock_t temps_initial, temps_final;
     LivreH *livre;
 
-    int m = 100; /*taille de la table de hashage*/
+    int m = 20; /*taille de la table de hashage*/
     
-    for (int i=0; i<30; i++) {
+    for (int i=0; i<50; i++) {
         /*création de la table*/
         b = charger_n_entrees("GdeBiblio.txt", 100000, m);
 
@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
             return 1;
         }
         fprintf(stream, "%d %f %f %f\n", m, tempsParNum, tempsParTitre, tempsParAuteur);
-        m += 100;
+        m += 20;
         liberer_biblio(b);
     }
     fclose(stream);
