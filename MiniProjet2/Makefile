@@ -25,4 +25,4 @@ mainH : mainH.c biblioH.o entreeSortieH.o
 	gcc -Wall -ggdb -o mainH biblioH.o entreeSortieH.o mainH.c
 
 clean :
-	rm -rf *.o mainLC
+	rm -rf *.o mainLC testLC mainH testH
