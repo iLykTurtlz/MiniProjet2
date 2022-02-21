@@ -7,6 +7,10 @@
 
 BiblioH *charger_n_entrees(char *nomfic, int n, int m) {
     FILE *f = fopen(nomfic, "r");
+    if (f==NULL){
+        fprintf(stderr, "Erreur charger_n_entrees : ouverture du fichier\n");
+        return NULL;
+        
     char buffer[256];
     char titre[256];
     char auteur[256];
@@ -30,12 +34,16 @@ BiblioH *charger_n_entrees(char *nomfic, int n, int m) {
 
 void enregistrer_biblio(BiblioH *b, char *nomfic) {
     FILE *f = fopen(nomfic,"w");
-    LivreH *l;
+    if (f==NULL){
+        fprintf(stderr, "Erreur charger_n_entrees : ouverture du fichier\n");
+        return NULL;
+        
+    LivreH *ptr;
     for (int i=0; i<b->m; i++) {
-        l = b->T[i];
-        while (l)   {
-            fprintf(f,"%d %s %s\n",l->num,l->titre,l->auteur);
-            l = l->suiv;
+        ptr = b->T[i];
+        while (ptr)   {
+            fprintf(f,"%d %s %s\n",ptr->num,ptr->titre,ptr->auteur);
+            ptr = ptr->suiv;
         }
     }
     fclose(f);
