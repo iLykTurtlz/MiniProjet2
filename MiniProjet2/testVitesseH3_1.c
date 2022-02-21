@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     strcpy(titre, argv[3]);
     strcpy(auteur, argv[4]);
     int presence = atoi(argv[5]);
-    BiblioH *b= charger_n_entrees("GdeBiblio.txt", 100000, 500);
+    BiblioH *b= charger_n_entrees("GdeBiblio.txt", 100000, 20);
 
     double tempsParNum=0., tempsParTitre=0., tempsParAuteur=0.;
     clock_t temps_initial, temps_final;
