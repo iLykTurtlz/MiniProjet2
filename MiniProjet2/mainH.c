@@ -110,7 +110,9 @@ int main(int argc, char **argv)  {
                 break;    
             case 7: /*Chercher doublons*/
                 doublons = plusieurs_exemp(b);
+                printf("Doublons dans la bibliothèque :\n");
                 afficher_liste(doublons);
+                printf("\n");
                 liberer_liste(doublons);
                 break;
         }

@@ -74,7 +74,7 @@ void inserer_copie_en_tete(LivreH **liste, int num, char *titre, char *auteur)  
 void inserer(BiblioH *b, int num, char *titre, char *auteur)    {
     LivreH *l = creer_livre(num,titre,auteur);
     int position = fonctionHachage(l->clef,b->m);
-    inserer_en_tete(&b->T[position], l); 
+    inserer_en_tete(b->T + position, l); 
 }
 
 void afficher_livre(LivreH *l)  {
