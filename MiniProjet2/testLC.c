@@ -135,17 +135,17 @@ printf("On cree, affiche fusionne libere deux bibliotheques \n");
 
 printf("creation b1 \n");
 b = creer_biblio();
-inserer_en_tete(b, 0, "titre0", "auteur0");
-inserer_en_tete(b, 1, "titre1", "A1");
-inserer_en_tete(b, 2, "titre2", "A1");
+inserer_en_tete(b, 0, "A", "A");
+inserer_en_tete(b, 1, "C", "C");
+inserer_en_tete(b, 0, "A", "A");
 afficher_biblio(b);
 
 printf("\n");
 printf("creation b2 \n");
 b2 = creer_biblio();
-inserer_en_tete(b2, 5, "T2", "auteur0");
-inserer_en_tete(b2, 1, "titre1", "A1");
-inserer_en_tete(b2, 2, "titre2", "A1");
+inserer_en_tete(b2, 5, "B", "B");
+inserer_en_tete(b2, 1, "C", "C");
+inserer_en_tete(b2, 3, "B", "B");
 afficher_biblio(b2);
 
 printf("\n");
